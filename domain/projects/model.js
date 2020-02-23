@@ -1,8 +1,8 @@
 /**
-  * This is the app Model it is decoupled from
-  * the Entities used for the databse
-*/
-class Post {
+ * This is the app Model it is decoupled from
+ * the Entities used for the databse
+ */
+class Project {
   constructor({ _id, userId, imageUrl, description, publisher, created } = {}) {
     this.id = _id;
     this.userId = userId;
@@ -13,4 +13,4 @@ class Post {
   }
 }
 
-module.exports = Post;
+module.exports = Project;
