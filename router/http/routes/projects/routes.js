@@ -81,6 +81,22 @@ function init({ projectService }) {
     })
   );
 
+  router.delete(
+    "/",
+    asyncWrapper(async (req, res) => {
+      const projectDoc = await projectService.del(
+        Object.assign(
+          {
+            projectId: req.body.projectId
+          },
+          getDefaultRequestParams(req)
+        )
+      );
+      return res.send({
+        data: projectDoc
+      });
+    })
+  );
   return router;
 }
 

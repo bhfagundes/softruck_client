@@ -16,10 +16,15 @@ function init({ projectRepository }) {
     return projectRepository.get(options);
   };
 
+  const del = async function del(options) {
+    return projectRepository.del(options);
+  };
+
   return {
     list,
     create,
-    get
+    get,
+    del
   };
 }
 
