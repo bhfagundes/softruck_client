@@ -114,6 +114,24 @@ const projectsStore = {
     } catch (error) {
       throw error;
     }
+  },
+  async update(options) {
+    try {
+      const { Project: projectSchema } = this.getSchemas();
+      console.log(options.id);
+      const doc = await projectSchema
+        .findOneAndUpdate({ _id: options.id }, { $set: options }, { new: true })
+        .lean()
+        .exec();
+      if (!doc) {
+        throw new errors.NotFound(
+          `Project with id ${options.projectId} not found.`
+        );
+      }
+      return mapper.toDomainModel(doc);
+    } catch (error) {
+      throw error;
+    }
   }
 };
 

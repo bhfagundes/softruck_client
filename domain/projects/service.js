@@ -20,11 +20,15 @@ function init({ projectRepository }) {
     return projectRepository.del(options);
   };
 
+  const update = async function update(options) {
+    return projectRepository.update(options);
+  };
   return {
     list,
     create,
     get,
-    del
+    del,
+    update
   };
 }
 

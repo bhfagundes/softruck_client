@@ -97,6 +97,26 @@ function init({ projectService }) {
       });
     })
   );
+  router.patch(
+    "/",
+    endpointValidator.requireValidPostBody,
+    asyncWrapper(async (req, res) => {
+      const newProject = await projectService.update(
+        Object.assign(
+          {
+            id: req.body.projectId,
+            name: req.body.name,
+            department: req.body.department,
+            status: req.body.status
+          },
+          getDefaultRequestParams(req)
+        )
+      );
+      return res.send({
+        data: newProject
+      });
+    })
+  );
   return router;
 }
 
