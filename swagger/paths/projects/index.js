@@ -74,15 +74,15 @@ module.exports = {
         description: "Body for creating new post",
         schema: {
           type: "object",
-          required: ["imageUrl", "publisher"],
+          required: ["name", "department", "status"],
           properties: {
-            imageUrl: {
+            name: {
               type: "string"
             },
-            publisher: {
+            department: {
               type: "string"
             },
-            description: {
+            status: {
               type: "string"
             }
           }

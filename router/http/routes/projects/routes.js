@@ -50,9 +50,9 @@ function init({ projectService }) {
       const newProject = await projectService.create(
         Object.assign(
           {
-            imageUrl: req.body.imageUrl,
-            description: req.body.description,
-            publisher: req.body.publisher
+            name: req.body.name,
+            department: req.body.department,
+            status: req.body.status
           },
           getDefaultRequestParams(req)
         )

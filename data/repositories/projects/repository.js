@@ -70,9 +70,9 @@ const projectsStore = {
       const { Project: projectSchema } = this.getSchemas();
       const newProject = new projectSchema({
         userId: options.userId,
-        imageUrl: options.imageUrl,
-        description: options.description,
-        publisher: options.publisher
+        name: options.name,
+        department: options.department,
+        status: options.status
       });
       const doc = await newProject.save();
       return mapper.toDomainModel(doc);
