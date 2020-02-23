@@ -64,19 +64,19 @@ function init({ projectService }) {
   );
 
   router.get(
-    "/:postId",
-    endpointValidator.requireValidPostId,
+    "/:projectId",
+    endpointValidator.requireValidProjectId,
     asyncWrapper(async (req, res) => {
-      const postDoc = await projectService.get(
+      const projectDoc = await projectService.get(
         Object.assign(
           {
-            postId: req.params.postId
+            projectId: req.params.projectId
           },
           getDefaultRequestParams(req)
         )
       );
       return res.send({
-        data: postDoc
+        data: projectDoc
       });
     })
   );

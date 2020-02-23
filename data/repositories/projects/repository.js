@@ -84,12 +84,12 @@ const projectsStore = {
     try {
       const { Project: projectSchema } = this.getSchemas();
       const doc = await projectSchema
-        .findOne({ userId: options.userId, _id: options.postId })
+        .findOne({ userId: options.userId, _id: options.projectId })
         .lean()
         .exec();
       if (!doc) {
         throw new errors.NotFound(
-          `Project with id ${options.postId} not found.`
+          `Project with id ${options.projectId} not found.`
         );
       }
       return mapper.toDomainModel(doc);

@@ -88,8 +88,8 @@ module.exports = class EndpointValidator {
     });
   }
 
-  requireValidPostId(req, res, next) {
-    req.checkParams("postId", "add a valid post id.").isMongoObjectID();
+  requireValidProjectId(req, res, next) {
+    req.checkParams("projectId", "add a valid project id.").isMongoObjectID();
     req.getValidationResult().then(result => {
       if (!result.isEmpty()) {
         return errorHandler(
