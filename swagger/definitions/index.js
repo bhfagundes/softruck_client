@@ -1,14 +1,13 @@
-const Errors = require('./Errors');
-const Pagination = require('./Pagination');
-const Token = require('./Token');
-const Post = require('./Post');
-const User = require('./User');
-
+const Errors = require("./Errors");
+const Pagination = require("./Pagination");
+const Token = require("./Token");
+const Project = require("./Project");
+const User = require("./User");
 
 module.exports = {
   Errors,
   Pagination,
   Token,
-  Post,
-  User,
+  Project,
+  User
 };

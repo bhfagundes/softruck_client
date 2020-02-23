@@ -8,59 +8,58 @@
 // I am using a factory function (using object literal and prototype) to pass methods on prototype chain
 // With factory functions(closures) we can have data privacy.
 
-const errors = require('../../../common/errors');
-const mapper = require('./mapper');
-
+const errors = require("../../../common/errors");
+const mapper = require("./mapper");
 
 const DEFAULT_PAGINATION_CONTENT = {
   pagination: {},
-  data: [],
+  data: []
 };
 
-
-const handleUsersPaginationResponse = (response) => {
+const handleUsersPaginationResponse = response => {
   if (!response.docs || response.docs.length <= 0) {
     return DEFAULT_PAGINATION_CONTENT;
   }
-  const postsList = {
+  const projectsList = {
     data: response.docs.map(doc => mapper.toDomainModel(doc)),
     pagination: {
       total: response.total,
       limit: response.limit,
       page: response.page,
-      pages: response.pages,
-    },
+      pages: response.pages
+    }
   };
-  return postsList;
+  return projectsList;
 };
 
 const getPaginationOptions = options => ({
   lean: true,
   page: options.page || 1,
   limit: options.limit || 25,
-  sort: { created: -1 },
+  sort: { created: -1 }
 });
 
-
-const getQueryObject = (options) => {
+const getQueryObject = options => {
   const queries = {
-    userId: options.userId,
+    userId: options.userId
   };
   if (options.publisher) {
     queries.publisher = {
       $regex: new RegExp(options.publisher),
-      $options: 'i',
+      $options: "i"
     };
   }
   return queries;
 };
 
-
-const postStore = {
+const projectsStore = {
   async list(options) {
     try {
-      const { Post: postSchema } = this.getSchemas();
-      const docs = await postSchema.paginate(getQueryObject(options), getPaginationOptions(options));
+      const { Post: projectSchema } = this.getSchemas();
+      const docs = await projectSchema.paginate(
+        getQueryObject(options),
+        getPaginationOptions(options)
+      );
       return handleUsersPaginationResponse(docs);
     } catch (error) {
       throw error;
@@ -68,12 +67,12 @@ const postStore = {
   },
   async create(options) {
     try {
-      const { Post: postSchema } = this.getSchemas();
-      const newPost = new postSchema({
+      const { Post: projectSchema } = this.getSchemas();
+      const newProject = new projectSchema({
         userId: options.userId,
         imageUrl: options.imageUrl,
         description: options.description,
-        publisher: options.publisher,
+        publisher: options.publisher
       });
       const doc = await newPost.save();
       return mapper.toDomainModel(doc);
@@ -83,8 +82,11 @@ const postStore = {
   },
   async get(options) {
     try {
-      const { Post: postSchema } = this.getSchemas();
-      const doc = await postSchema.findOne({ userId: options.userId, _id: options.postId }).lean().exec();
+      const { Post: projectSchema } = this.getSchemas();
+      const doc = await projectSchema
+        .findOne({ userId: options.userId, _id: options.postId })
+        .lean()
+        .exec();
       if (!doc) {
         throw new errors.NotFound(`Post with id ${options.postId} not found.`);
       }
@@ -92,15 +94,14 @@ const postStore = {
     } catch (error) {
       throw error;
     }
-  },
+  }
 };
 
-
-module.exports = ({ Post }) => Object.assign(Object.create(postStore), {
-  getSchemas() {
-    return {
-      Post,
-    };
-  },
-});
-
+module.exports = ({ Post }) =>
+  Object.assign(Object.create(projectsStore), {
+    getSchemas() {
+      return {
+        Post
+      };
+    }
+  });
