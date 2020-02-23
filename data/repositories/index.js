@@ -1,7 +1,7 @@
-const postRepository = require("./projects/repository");
+const projectRepository = require("./projects/repository");
 const userRepository = require("./users/repository");
 
 module.exports = db => ({
-  postRepository: postRepository(db.schemas),
+  projectRepository: projectRepository(db.schemas),
   userRepository: userRepository(db.schemas)
 });

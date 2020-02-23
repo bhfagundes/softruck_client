@@ -55,7 +55,7 @@ const getQueryObject = options => {
 const projectsStore = {
   async list(options) {
     try {
-      const { Post: projectSchema } = this.getSchemas();
+      const { Project: projectSchema } = this.getSchemas();
       const docs = await projectSchema.paginate(
         getQueryObject(options),
         getPaginationOptions(options)
@@ -67,14 +67,14 @@ const projectsStore = {
   },
   async create(options) {
     try {
-      const { Post: projectSchema } = this.getSchemas();
+      const { Project: projectSchema } = this.getSchemas();
       const newProject = new projectSchema({
         userId: options.userId,
         imageUrl: options.imageUrl,
         description: options.description,
         publisher: options.publisher
       });
-      const doc = await newPost.save();
+      const doc = await newProject.save();
       return mapper.toDomainModel(doc);
     } catch (error) {
       throw error;
@@ -82,13 +82,15 @@ const projectsStore = {
   },
   async get(options) {
     try {
-      const { Post: projectSchema } = this.getSchemas();
+      const { Project: projectSchema } = this.getSchemas();
       const doc = await projectSchema
         .findOne({ userId: options.userId, _id: options.postId })
         .lean()
         .exec();
       if (!doc) {
-        throw new errors.NotFound(`Post with id ${options.postId} not found.`);
+        throw new errors.NotFound(
+          `Project with id ${options.postId} not found.`
+        );
       }
       return mapper.toDomainModel(doc);
     } catch (error) {
@@ -97,11 +99,11 @@ const projectsStore = {
   }
 };
 
-module.exports = ({ Post }) =>
+module.exports = ({ Project }) =>
   Object.assign(Object.create(projectsStore), {
     getSchemas() {
       return {
-        Post
+        Project
       };
     }
   });

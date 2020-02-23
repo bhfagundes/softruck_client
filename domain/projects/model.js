@@ -3,12 +3,12 @@
  * the Entities used for the databse
  */
 class Project {
-  constructor({ _id, userId, imageUrl, description, publisher, created } = {}) {
+  constructor({ _id, userId, name, status, department, created } = {}) {
     this.id = _id;
     this.userId = userId;
-    this.imageUrl = imageUrl;
-    this.description = description;
-    this.publisher = publisher;
+    this.name = name;
+    this.status = status;
+    this.department = department;
     this.created = created;
   }
 }

@@ -4,8 +4,8 @@ const toDatabase = function toDatabase(doc) {
   // TODO
 };
 
-const toDomainModel = function toDomainModel(postDoc) {
-  return new ProjectModel(postDoc);
+const toDomainModel = function toDomainModel(projectDoc) {
+  return new ProjectModel(projectDoc);
 };
 
 module.exports = {

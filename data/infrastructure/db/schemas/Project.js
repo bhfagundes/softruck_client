@@ -30,7 +30,6 @@ function create(mongoose) {
   projectSchema.index({ created: -1 });
 
   projectSchema.plugin(mongoosePaginate);
-
   return mongoose.model("Project", projectSchema);
 }
 

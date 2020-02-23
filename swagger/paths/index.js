@@ -1,10 +1,9 @@
-const auth = require('./auth');
-const posts = require('./posts');
-const users = require('./users');
-
+const auth = require("./auth");
+const projects = require("./projects");
+const users = require("./users");
 
 module.exports = {
   auth,
-  posts,
-  users,
+  projects,
+  users
 };

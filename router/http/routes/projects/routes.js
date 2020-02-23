@@ -6,7 +6,7 @@ const { getDefaultRequestParams } = require("../../utils/getRequestParams");
 const endpointValidator = new EndpointValidator();
 const router = express.Router({ mergeParams: true });
 
-function init({ postService }) {
+function init({ projectService }) {
   const DEFAULT_PAGINATION_LIMIT = 25;
   const MAX_PAGINATION_LIMIT = 100;
   const DEFAULT_PAGINATION_PAGE = 1;
@@ -28,7 +28,7 @@ function init({ postService }) {
   router.get(
     "/",
     asyncWrapper(async (req, res) => {
-      const projectsList = await postService.list(
+      const projectsList = await projectService.list(
         Object.assign(
           {},
           handlePagination({
@@ -47,7 +47,7 @@ function init({ postService }) {
     "/",
     endpointValidator.requireValidPostBody,
     asyncWrapper(async (req, res) => {
-      const newProject = await postService.create(
+      const newProject = await projectService.create(
         Object.assign(
           {
             imageUrl: req.body.imageUrl,
@@ -67,7 +67,7 @@ function init({ postService }) {
     "/:postId",
     endpointValidator.requireValidPostId,
     asyncWrapper(async (req, res) => {
-      const postDoc = await postService.get(
+      const postDoc = await projectService.get(
         Object.assign(
           {
             postId: req.params.postId
