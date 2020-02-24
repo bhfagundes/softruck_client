@@ -7,9 +7,9 @@ const repositories = sinon.stub();
 const services = require("../../domain")(repositories);
 const app = require("../../router/http/app")(services);
 const jwt = require("jsonwebtoken");
-const postData = require("../data/post").posts;
+const projectData = require("../data/project").projects;
 
-const postService = services.postService;
+const projectService = services.projectService;
 const jwtSecret = process.env.JWT_SECRET;
 const testEmail = "kent@gmail.com";
 const testFullname = "klark kent";
@@ -18,13 +18,13 @@ const testID = "111111";
 let testToken;
 
 /*eslint-disable */
-describe("post routes test", function() {
+describe("project routes test", function() {
   describe("GET /project test", function() {
     var auth = {};
     //before(loginUser(auth));
 
     beforeEach(done => {
-      sinon.stub(postService, "list");
+      sinon.stub(projectService, "list");
       testToken = jwt.sign(
         { email: testEmail, fullName: testFullname, _id: testID },
         jwtSecret,
@@ -34,17 +34,17 @@ describe("post routes test", function() {
     });
 
     afterEach(() => {
-      postService.list.restore();
+      projectService.list.restore();
     });
 
     it("should return 200 an array of posts", function(done) {
-      postService.list.resolves(postData);
+      projectService.list.resolves(projectData);
       request(app)
         .get("/project")
         .set("Authorization", `Bearer ${testToken}`)
         .expect(200)
         .then(res => {
-          expect(res.body.length).to.eql(postData.length);
+          expect(res.body.length).to.eql(projectData.length);
           return done();
         });
     });
@@ -65,14 +65,14 @@ describe("post routes test", function() {
 
   describe("GET /project/:id test", function() {
     beforeEach(() => {
-      sinon.stub(postService, "get");
+      sinon.stub(projectService, "get");
     });
     afterEach(() => {
-      postService.get.restore();
+      projectService.get.restore();
     });
 
     it("should return a post", function(done) {
-      postService.get.resolves(postData[0]);
+      projectService.get.resolves(projectData[0]);
 
       request(app)
         .get("/project/5a511ff1568c490f9e0e4b4d")
