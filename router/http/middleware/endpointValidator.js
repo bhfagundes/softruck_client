@@ -104,7 +104,7 @@ module.exports = class EndpointValidator {
   }
 
   requireValidPostBody(req, res, next) {
-    req.checkBody("name", "name in body required.").notEmpty();
+    req.checkBody("projectName", "name in body required.").notEmpty();
     req.checkBody("status", "status in body required.").notEmpty();
     req.checkBody("department", "department in body required.").notEmpty();
     req.getValidationResult().then(result => {
@@ -118,6 +118,7 @@ module.exports = class EndpointValidator {
           next
         );
       }
+
       return next();
     });
   }

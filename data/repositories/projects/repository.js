@@ -118,7 +118,7 @@ const projectsStore = {
   async update(options) {
     try {
       const { Project: projectSchema } = this.getSchemas();
-      console.log(options.id);
+
       const doc = await projectSchema
         .findOneAndUpdate({ _id: options.id }, { $set: options }, { new: true })
         .lean()

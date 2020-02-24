@@ -50,7 +50,7 @@ function init({ projectService }) {
       const newProject = await projectService.create(
         Object.assign(
           {
-            name: req.body.name,
+            name: req.body.projectName,
             department: req.body.department,
             status: req.body.status
           },
@@ -87,7 +87,7 @@ function init({ projectService }) {
       const projectDoc = await projectService.del(
         Object.assign(
           {
-            projectId: req.body.projectId
+            projectId: req.body.id
           },
           getDefaultRequestParams(req)
         )
@@ -99,13 +99,12 @@ function init({ projectService }) {
   );
   router.patch(
     "/",
-    endpointValidator.requireValidPostBody,
     asyncWrapper(async (req, res) => {
       const newProject = await projectService.update(
         Object.assign(
           {
-            id: req.body.projectId,
-            name: req.body.name,
+            id: req.body.id,
+            name: req.body.projectName,
             department: req.body.department,
             status: req.body.status
           },
